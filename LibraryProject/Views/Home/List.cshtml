@@ -1,0 +1,45 @@
+﻿
+
+@model IEnumerable<LibraryProject.Models.Books> 
+    
+
+
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>List</h2>
+
+<div class="table-responsive">
+    <table class="table table-condensed">
+        <thead>
+            <tr>
+
+                <td> Publish Date  </td>
+                <td> Book Name </td>
+                <td> Writer </td>
+                
+                <td> # </td>
+
+            </tr>
+        </thead>
+        <tbody>
+
+
+        
+
+            @foreach (var item in Model)
+            {
+                <tr class="active">
+                    <td>@item.PublishDate</td>
+                    <td>@item.BookName</td>
+                    <td>@item.Writer</td>
+                    
+                    <td>#</td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
