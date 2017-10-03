@@ -66,12 +66,34 @@ namespace LibraryProject.Controllers
         }
 
 
-  
+
+        public ActionResult Detail(int? id)
+        {
 
 
+            Books bk = db.Books.Find(id);
 
+            if (bk == null)
+            {
+                return HttpNotFound();
+            }
 
+            return View(bk);
 
+        }
+
+        public ActionResult Delete(int? id)
+             
+
+        {
+            Books bk = db.Books.Find(id);
+            db.Books.Remove(bk);
+            db.SaveChanges();
+
+            return RedirectToAction("List");
+
+        }
+        
 
         public ActionResult About()
         {
