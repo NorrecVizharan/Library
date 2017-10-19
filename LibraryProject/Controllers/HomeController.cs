@@ -8,10 +8,11 @@ namespace LibraryProject.Controllers
 {
 
     using Models;
+    using System.Data.Entity;
 
     public class HomeController : Controller
     {
-        LIBRARYEntities2 db = new LIBRARYEntities2();
+  LIBRARYEntities3 db = new LIBRARYEntities3();
 
 
         public ActionResult Index()
@@ -54,9 +55,11 @@ namespace LibraryProject.Controllers
             return View();
 
         }
-          
 
-       
+      
+
+
+
 
         public ActionResult List()
         {
@@ -82,17 +85,17 @@ namespace LibraryProject.Controllers
 
         }
 
-        public ActionResult Delete(int? id)
+        //public ActionResult Delete(int? id)
              
 
-        {
-            Books bk = db.Books.Find(id);
-            db.Books.Remove(bk);
-            db.SaveChanges();
+        //{
+        //    Books bk = db.Books.Find(id);
+        //    db.Books.Remove(bk);
+        //    db.SaveChanges();
 
-            return RedirectToAction("List");
+        //    return RedirectToAction("List");
 
-        }
+        //}
         
 
         public ActionResult About()
@@ -108,5 +111,44 @@ namespace LibraryProject.Controllers
 
             return View();
         }
+
+        public ActionResult Delete(int? id)
+
+
+        {
+            Books bk = db.Books.Find(id);
+            db.Books.Remove(bk);
+            db.SaveChanges();
+
+            return RedirectToAction("List");
+
+        }
+
+        [HttpPost]
+        public ActionResult Update(int? id, Books books, Publishers publisher)
+        {
+
+
+            db.Entry(publisher).State= EntityState.Modified;
+            db.Entry(books).State = EntityState.Modified;
+            db.Publishers.Add(publisher);
+            
+            Books silinecek=db.Books.Where(b => b.BookID == id).First();
+            db.Books.Remove(silinecek);
+            db.Books.Add(books);
+            db.SaveChanges();
+
+            return RedirectToAction("List");
+
+        }
+
+        public ActionResult Update(int? id)
+        {
+            if (id == null) { return RedirectToAction("Create"); }
+
+            return View(db.Books.Where(a=>a.BookID==id).FirstOrDefault());
+
+        }
+
     }
 }

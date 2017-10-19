@@ -36,7 +36,7 @@
                     <td>@item.BookName</td>
                     
                     
-                    <td>@Html.ActionLink("Detail", "Detail", new { id = item.BookID }) @Html.ActionLink("Delete", "Delete", new { id=item.BookID }) </td>
+                    <td>@Html.ActionLink("Detail", "Detail", new { id = item.BookID }) @Html.ActionLink("Delete", "Delete", new { id=item.BookID }) @Html.ActionLink("Update", "Update", new { id = item.BookID }) </td>
                    
                 </tr>
             }
